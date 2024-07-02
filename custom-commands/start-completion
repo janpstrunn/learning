@@ -1,0 +1,20 @@
+#!bin/bash
+# This is query the arguments without having to rely on the `echo` command
+# It allows to tab and auto-complete
+
+# Put this is .bashrc
+# source /path/to/start_completion.sh
+
+start_completion() {
+  local cur_word
+  COMPREPLY=()
+  cur_word="${COMP_WORDS[COMP_CWORD]}"
+
+  # Define your completion options here
+  options="deltachat nextcloud gimp gnupg xfce4-screenshooter"
+
+  COMPREPLY=( $(compgen -W "${options}" -- "${cur_word}") )
+  return 0
+}
+
+complete -F start_completion start

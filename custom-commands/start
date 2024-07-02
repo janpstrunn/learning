@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# This is just like an alias
+
+# While executing the `start` command, an argument will be required, 
+# which is exactly the path to the command, command path or AppImage path
+
+
+case "$1" in
+    "nethunter")
+        nmap -v -sn 192.168.0.1/24 | grep -v 'host down'
+        ;;
+    "deltachat")
+        /home/user/Applications/deltachat.AppImage
+        ;;
+    "showbattery")
+        acpi
+        ;;
+    "downloadclean")
+        rm -R * /home/user/Downloads/
+        ;;
+    # More arguments could be added. As the following example: `./start autogit Today's Update...`
+    "autogit")
+        git add -A; git commit -m "$2"; git push origin main
+        ;;
+        *)
+
+        # It would become a huge list. Just in case to remember the input without having to
+        # go back to the code and see the options, there's also a reminder
+        echo -e 'Reminder:\n 01 - nethunter\n 02 - deltachat\n 03 - showbattery\n 04 - downloadclean\n 05 autogit $2'
+        exit 1
+        ;;
+esac
+
+
