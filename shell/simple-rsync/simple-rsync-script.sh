@@ -25,16 +25,6 @@ elif [ "$choice" = "del" ]; then
     rsync -av --delete "$dir1" "$dir2"
     if [ $? -eq 0 ]; then
         echo "Complete!"
-        read -p "Do you want to extra run a diff command to show directories differences? (y/n): " choice
-        if [ "$choice" = "y" ]; then
-            echo "Running diff"
-            diff -r "$dir1" "$dir2"
-            if [ $? -eq 0 ]; then
-                echo "Complete!"
-            fi
-        else
-            echo "Skipped"
-        fi
     else
         echo "The command 'rsync' failed!"
     fi
