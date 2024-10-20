@@ -5,12 +5,17 @@ from tkinter import simpledialog
 import os
 import subprocess
 
-pandora = "/run/media/janpstrunn/Pandora/"
+# Directories
 
+pandora = "/run/media/janpstrunn/Pandora/"
 obsidian = "Obsidian/"
 forgejo = "Forgejo/"
+p_j = os.path.join(pandora, forgejo)
 
-git_repo_dir = input("What git repo do you want to commit?\n 1. YGGDRASIL\n 2. OUROBOROS\n 3. LAPLACE\n 4. learning\n")
+print("Available repos:\n")
+subprocess.run(["lsd", p_j], text=True, check=True)
+
+git_repo_dir = input("\nWhat git repo do you want to commit?\n")
 
 obsidian_repos = {"YGGDRASIL", "LAPLACE", "OUROBOROS"}
 
@@ -30,7 +35,7 @@ if git_repo_dir.lower() in obsidian_repos:
         print(f"An error occurred: {e}")
 
 else:
-    full_path = os.path.join(pandora, forgejo, git_repo_dir + "/")
+    full_path = os.path.join(p_j, git_repo_dir + "/")
 
     root = tk.Tk()
     root.withdraw()
