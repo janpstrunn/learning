@@ -35,6 +35,7 @@ if git_repo_dir in obsidian_repos:
     try:
         subprocess.run(["git", "-C", full_obsidian_path, "add", "-A"], check=True)
         subprocess.run(["git", "-C", full_obsidian_path, "commit", "-m", commit_message], check=True)
+        subprocess.run(["git", "-C", full_obsidian_path, "push", "origin", "main"], check=True)
         print("Changes committed successfully!")
     except subprocess.CalledProcessError as e:
         print(f"An error occurred: {e}")
@@ -50,6 +51,7 @@ else:
     try:
         subprocess.run(["git", "-C", full_path, "add", "-A"], check=True)
         subprocess.run(["git", "-C", full_path, "commit", "-m", commit_message], check=True)
+        subprocess.run(["git", "-C", full_path, "push", "origin", "main"], check=True)
         print("Changes committed successfully!")
     except subprocess.CalledProcessError as e:
         print(f"An error occurred: {e}")
