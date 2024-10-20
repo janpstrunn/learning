@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
-## Modules ###
+### Modules ###
 
 import tkinter as tk
 from tkinter import simpledialog
 import os
 import subprocess
+import readline
 
 ###############
 
@@ -18,8 +19,24 @@ forgejo = "Forgejo/"
 ####################
 
 print("Available repos:\n")
-subprocess.run(["lsd", pandora + forgejo], text=True, check=True)
-subprocess.run(["lsd", pandora + obsidian], text=True, check=True)
+subprocess.run(["lsd", pandora + forgejo], check=True)
+subprocess.run(["lsd", pandora + obsidian], check=True)
+
+p_j_output = subprocess.run(["ls", pandora + forgejo], text=True, check=True, capture_output=True).stdout.splitlines()
+p_o_output = subprocess.run(["ls", pandora + obsidian], text=True, check=True, capture_output=True).stdout.splitlines()
+
+directories = p_j_output + p_o_output
+
+def completer(text, state):
+    options = [d for d in directories if d.startswith(text)]
+    if state < len(options):
+        return options[state]
+    else:
+        return None
+
+readline.set_completer(completer)
+readline.parse_and_bind("tab: complete")
+
 git_repo_dir = input("\nWhat git repo do you want to commit?\n")
 
 obsidian_repos = {"YGGDRASIL", "LAPLACE", "OUROBOROS"}
