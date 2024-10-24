@@ -2,8 +2,6 @@
 
 ### Modules ###
 
-import tkinter as tk
-from tkinter import simpledialog
 import os
 import subprocess
 import readline
@@ -44,10 +42,7 @@ obsidian_repos = {"YGGDRASIL", "LAPLACE", "OUROBOROS"}
 if git_repo_dir in obsidian_repos:
     full_obsidian_path = os.path.join(pandora, obsidian, git_repo_dir + "/")
 
-    root = tk.Tk()
-    root.withdraw()
-
-    commit_message = simpledialog.askstring("Git Commit", "Enter your commit message:")
+    commit_message = input("Enter your commit message:\n")
 
     try:
         subprocess.run(["git", "-C", full_obsidian_path, "add", "-A"], check=True)
@@ -60,10 +55,7 @@ if git_repo_dir in obsidian_repos:
 else:
     full_path = os.path.join(pandora, forgejo, git_repo_dir + "/")
 
-    root = tk.Tk()
-    root.withdraw()
-
-    commit_message = simpledialog.askstring("Git Commit", "Enter your commit message:")
+    commit_message = input("Enter your commit message:\n")
 
     try:
         subprocess.run(["git", "-C", full_path, "add", "-A"], check=True)
