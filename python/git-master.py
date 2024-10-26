@@ -37,23 +37,24 @@ readline.parse_and_bind("tab: complete")
 
 git_repo_dir = input("\nWhat git repo do you want to commit?\n")
 
-obsidian_repos = {"YGGDRASIL", "LAPLACE", "OUROBOROS"}
+obsidian_repos = {"YGGDRASIL", "LAPLACE", "OUROBOROS", "YGGDRASIL!", "LAPLACE!", "OUROBOROS!"}
 
 if git_repo_dir in obsidian_repos:
-    full_obsidian_path = os.path.join(pandora, obsidian, git_repo_dir + "/")
+    full_path = os.path.join(pandora, obsidian, git_repo_dir.rstrip("!") + "/")
+else:
+    full_path = os.path.join(pandora, forgejo, git_repo_dir.rstrip("!") + "/")
 
-    commit_message = "Auto Update"
+if git_repo_dir.endswith("!"):
 
     try:
-        subprocess.run(["git", "-C", full_obsidian_path, "add", "-A"], check=True)
-        subprocess.run(["git", "-C", full_obsidian_path, "commit", "-m", commit_message], check=True)
-        subprocess.run(["git", "-C", full_obsidian_path, "push", "origin", "main"], check=True)
+        subprocess.run(["git", "-C", full_path, "add", "-A"], check=True)
+        subprocess.run(["git", "-C", full_path, "commit", "-m", "Auto Update"], check=True)
+        subprocess.run(["git", "-C", full_path, "push", "origin", "main"], check=True)
         print("Changes committed successfully!")
     except subprocess.CalledProcessError as e:
         print(f"An error occurred: {e}")
 
 else:
-    full_path = os.path.join(pandora, forgejo, git_repo_dir + "/")
 
     commit_message = input("Enter your commit message:\n")
 
