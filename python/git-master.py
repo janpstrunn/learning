@@ -42,7 +42,7 @@ obsidian_repos = {"YGGDRASIL", "LAPLACE", "OUROBOROS"}
 if git_repo_dir in obsidian_repos:
     full_obsidian_path = os.path.join(pandora, obsidian, git_repo_dir + "/")
 
-    commit_message = input("Enter your commit message:\n")
+    commit_message = "Auto Update"
 
     try:
         subprocess.run(["git", "-C", full_obsidian_path, "add", "-A"], check=True)
